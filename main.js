@@ -1,11 +1,13 @@
+//Import crypto-js
 const SHA256 = require('crypto-js/sha256');
+
 class Block{
   constructor(index, timestamp, data, previousHash = ''){
     this.index = index;
     this.timestamp = timestamp;
     this.data = data;
     this.previousHash = previousHash;
-    this.hash = this.calculatedHash();
+    this.hash = this.calculateHash();
   }
 
   calculateHash(){
@@ -41,7 +43,7 @@ class Blockchain{
         return false;
       }
 
-      if(currentBlock.previousHash !== previousHash.hash){
+      if(currentBlock.previousHash !== previousBlock.hash){
         return false;
       }
     }
@@ -56,4 +58,9 @@ vinceCoin.addBlock(new Block(2, "20/01/2018", {amount: 42}));
 
 console.log('Is blockchain valid? ' + vinceCoin.isChainValid());
 
-//console.log(JSON.stringify(vinceCoin, null, 4));
+//Tampering tests
+vinceCoin.chain[1].data = {amount: 10000};
+vinceCoin.chain[1].hash = vinceCoin.chain[1].calculateHash();
+
+console.log('Is blockchain valid? ' + vinceCoin.isChainValid());
+//  console.log(JSON.stringify(vinceCoin, null, 4));
