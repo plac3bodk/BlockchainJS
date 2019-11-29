@@ -1,5 +1,3 @@
-//https://www.youtube.com/watch?v=HneatE69814
-
 //Import crypto-js
 const SHA256 = require('crypto-js/sha256');
 
